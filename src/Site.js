@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import './style.css';
 import styled from 'styled-components';
 import { MdMenu, MdComputer, MdSearch } from 'react-icons/md';
 import { AiOutlineArrowRight, AiOutlineArrowUp } from 'react-icons/ai';
+import { PostContext } from './hooks/PostSearchProvider';
 
 const Header = styled.header`
   display: block;
@@ -141,12 +142,17 @@ export default function Site() {
   const modalRef = useRef();
   const headerRef = useRef();
   const modalSearchRef = useRef();
+  const inputSearch = useRef();
+  const { getByTitle } = useContext(PostContext);
 
   const openModalSearchPost = () => {
     modalSearchRef.current.style.transform = 'translateY(0%)';
+    inputSearch.current.focus();
   };
   const closeModalSearchPost = () => {
     modalSearchRef.current.style.transform = 'translateY(-100%)';
+    inputSearch.current.value = '';
+    getByTitle(inputSearch.current.value);
   };
   const openNavbar = () => {
     modalRef.current.style.transform = 'translateX(0%)';
@@ -184,7 +190,13 @@ export default function Site() {
       </Header>
       <ModalSearch ref={modalSearchRef}>
         <ContainerFlex>
-          <input type="search" />
+          <input
+            type="search"
+            ref={inputSearch}
+            onChange={(ev) => {
+              getByTitle(ev.target.value);
+            }}
+          />
           <ButtonIcon className="flex-center" onClick={closeModalSearchPost}>
             <BtnCloseModalSearch />
           </ButtonIcon>

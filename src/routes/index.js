@@ -6,11 +6,12 @@ import Site from '../Site';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
+import PostSearchProvider from '../hooks/PostSearchProvider';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Site />,
+    element: <PostSearchProvider children={<Site />} />,
     errorElement: <ErrorPage />,
     children: [
       {
