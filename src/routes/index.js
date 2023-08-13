@@ -5,6 +5,7 @@ import App from '../App';
 import Site from '../Site';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import Post from '../pages/Post';
 import Dashboard from '../pages/Dashboard';
 import PostSearchProvider from '../hooks/PostSearchProvider';
 
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/post/:post_id',
+        element: <Post />,
       },
     ],
   },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   HeaderStyled,
   LogoBox,
@@ -8,15 +8,10 @@ import {
 } from './index_styles';
 import { Container } from '../glob';
 import { MdSearch, MdMenu } from 'react-icons/md';
+import { HeaderStateContext } from '../../hooks/HeaderStateProvider';
 
 export function Header() {
-  const openModalSearchPost = () => {
-    console.log('Show Modal Search');
-  };
-
-  const openNavbar = () => {
-    console.log('Show Navbar');
-  };
+  const { toggleModalSearch, toggleModalNav } = useContext(HeaderStateContext);
 
   return (
     <HeaderStyled>
@@ -26,10 +21,10 @@ export function Header() {
         </LogoBox>
 
         <GroupActionIcon>
-          <ButtonIcon className="flex-center" onClick={openModalSearchPost}>
+          <ButtonIcon className="flex-center" onClick={toggleModalSearch}>
             <MdSearch />
           </ButtonIcon>
-          <ButtonIcon className="flex-center" onClick={openNavbar}>
+          <ButtonIcon className="flex-center" onClick={toggleModalNav}>
             <MdMenu />
           </ButtonIcon>
         </GroupActionIcon>
