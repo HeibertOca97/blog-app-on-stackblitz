@@ -57,14 +57,41 @@ const CardListLink = styled.div`
 `;
 
 const LinkGroup = styled(Link)`
+  cursor: pointer;
   text-decoration: none;
   color: #fff;
   width: 100%;
-  display:block;
+  display: block;
   padding: 10px;
   margin: 10px auto;
-  box-shadow: 0px 5px 10px #bbb;
-  border-radius: 8px;
+  background-color: var(--alt-color);
+  box-shadow: 0px 2px 10px #3CE9A3;
+  border-radius: 5px;
+
+  div{
+    display: flex;
+    align-item: center;
+
+    picture{
+      width: 27.5%;
+      margin-right: 2.5%;
+      height: 80px;
+      overflow: hidden;
+      display: block;
+      border-radius: 5px;
+
+      img{
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    p{
+      width: 70%;
+    }
+  }
 `;
 
 export function ModalSearch() {
@@ -72,7 +99,7 @@ export function ModalSearch() {
     useContext(HeaderStateContext);
   const { getByTitle, found_post, getAll } = useContext(PostContext);
 
-  const showData = () => {
+  const showListData = () => {
     if (found_post == null || inputSearchRef.current.value.length == 0) {
       return <p>What do you want to see?</p>;
     }
@@ -80,6 +107,7 @@ export function ModalSearch() {
     if (found_post.length == 0) {
       return <p>Article no found</p>;
     }
+
     return found_post.map((post) => (
       <LinkGroup
         to={`/post/${post.id}`}
@@ -89,7 +117,16 @@ export function ModalSearch() {
         }}
         key={post.id}
       >
-        {post.title}
+        <div>
+          <picture>
+            <img src={post.picture} title={post.title} alt={post.title} />
+          </picture>
+          <p>
+            {post.title.length < 76
+              ? post.title
+              : post.title.substr(0, 75) + '...'}
+          </p>
+        </div>
       </LinkGroup>
     ));
   };
@@ -119,7 +156,7 @@ export function ModalSearch() {
         </ButtonIcon>
       </ContainerFlex>
       <Container>
-        <CardListLink>{showData()}</CardListLink>
+        <CardListLink>{showListData()}</CardListLink>
       </Container>
     </Modal>
   );
