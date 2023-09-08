@@ -109,7 +109,6 @@ export default function Post() {
 
   return (
     <>
-      <h1>Post: {params.post_id}</h1>
       <Wrapper>
         {posts.map((post) => (
           <CardItem key={post.id}>
