@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { HeaderStateContext } from '../../hooks/HeaderStateProvider';
 import styled from 'styled-components';
@@ -13,6 +13,7 @@ const Modal = styled.div`
   left: 0;  
   transition: all 200ms linear;
   transform: translateX(100%);
+  font-size: calc(var(--size) + .3em);
   `;
 
 const NavBar = styled.nav`
@@ -35,6 +36,11 @@ const LinkPage = styled(Link)`
   color: #fff;
   margin-bottom: 5px;
   text-align: center;
+  transition: all 300ms linear;
+
+  &:hover{
+    text-decoration: line-through;
+  }
 `;
 
 const ButtonCloseModal = styled.button`
@@ -44,7 +50,7 @@ const ButtonCloseModal = styled.button`
   border: none;
   background-color: transparent;
   color: #fff;
-  font-size: var(--size);
+  font-size: calc(var(--size) + .3em);
 `;
 
 const BoxHidden = styled.div`
@@ -53,17 +59,39 @@ const BoxHidden = styled.div`
 
 export function ModalNavBar() {
   const { modalNavRef, toggleModalNav } = useContext(HeaderStateContext);
+  const { pathname } = useLocation();
+  const isActive = (strPathname) => ({
+    textDecoration: `${
+      pathname.split('/')[1] == strPathname ? 'line-through' : 'none'
+    }`,
+  });
+
   return (
     <Modal ref={modalNavRef}>
       <ButtonCloseModal onClick={() => toggleModalNav(false)}>
         <AiOutlineArrowRight />
       </ButtonCloseModal>
       <NavBar>
-        <BoxHidden height="30px" />
-        <LinkPage to="/" onClick={() => toggleModalNav(false)}>
+        <BoxHidden height="70px" />
+        <LinkPage
+          to="/"
+          onClick={() => toggleModalNav(false)}
+          style={isActive('')}
+        >
           Home
         </LinkPage>
-        <LinkPage to="login" onClick={() => toggleModalNav(false)}>
+        <LinkPage
+          to="post"
+          onClick={() => toggleModalNav(false)}
+          style={isActive('post')}
+        >
+          Post
+        </LinkPage>
+        <LinkPage
+          to="login"
+          onClick={() => toggleModalNav(false)}
+          style={isActive('login')}
+        >
           login
         </LinkPage>
         <BoxHidden height="50px" />

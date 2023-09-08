@@ -37,7 +37,6 @@ export const getPost = async () => {
       window.localStorage.setItem('posts', JSON.stringify(await getMapPost()));
     }
     const posts = JSON.parse(window.localStorage.getItem('posts'));
-    console.log(posts[0]);
     return posts;
   } catch (error) {
     return error;

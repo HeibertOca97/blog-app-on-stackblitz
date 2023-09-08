@@ -5,7 +5,7 @@ import {
   LogoIcon,
   ButtonIcon,
   GroupActionIcon,
-} from './index_styles';
+} from './styles';
 import { Container } from '../glob';
 import { MdSearch, MdMenu } from 'react-icons/md';
 import { HeaderStateContext } from '../../hooks/HeaderStateProvider';

@@ -20,6 +20,10 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: '/post',
+        element: <Post />,
+      },
+      {
         path: '/post/:post_id',
         element: <Post />,
       },
